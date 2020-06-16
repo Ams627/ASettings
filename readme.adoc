@@ -1,0 +1,71 @@
+:toc:
+:sectnums:
+:toclevels: 5
+:sectnumlevels: 5
+:showcomments:
+:xrefstyle: short
+:icons: font
+:source-highlighter: coderay
+:tick: &#x2714;
+:pound: &#xA3;
+
+= ASettings: a processor for ini-like settings
+
+== White space
+
+Blank lines are ignored. Whitespace at the beginning and end of lines is trimmed before further processing.
+
+== Comments
+
+All text after a hash character on a line is a comment. Comments are ignored.
+
+== Sections
+
+An string starting with a left square bracket and ending with a right square bracket is section indicators. For example:
+
+A section ends where the next section starts or at the end of the file.
+
+----
+[Files]
+----
+
+Section names must be unique in the file
+
+== Key-Value pairs
+
+Settings in this type of file are key-value pairs. The same key may be specified more than once in which case the effect is additive: The key-value
+has more than one value.
+
+Key-Value pairs are specified with the following syntax:
+
+----
+key=value
+----
+
+Whitespace is not significant so `key = value` is equivalent.
+
+Within a section, a line that contains zero equals characters or more than one equals character is a syntax error.
+
+== Keys with a single value.
+
+It's possible to set keys to have a single value in which case the following would be invalid:
+
+----
+[Files]
+include=*.c
+include=*.h
+----
+
+We do this by specifying a list of valid settings  for a specific section or for any section. Against each setting, we specify a boolean to indicate whether
+or not the setting is single-valued or not.
+
+== Quoting Rules
+
+To include a hash in a value, we must quote it. Hash is not allowed in a key name.
+
+
+
+
+
+
+
