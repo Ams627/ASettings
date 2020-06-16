@@ -12,13 +12,21 @@ namespace ASettings
     /// </summary>
     public class Settings
     {
+        public class ValidSetting
+        {
+            public string Name { get; set; }
+            public bool IsSingle { get; set; }
+        }
+
         private readonly string _settingsFile;
         Dictionary<string, Dictionary<string, List<string>>> _settings = new Dictionary<string, Dictionary<string, List<string>>>();
+        IEnumerable<ValidSetting> _validSettings;
 
         List<(int linenumber, string line)> _errors = new List<(int linenumber, string line)>();
-        public Settings(string filename)
+        public Settings(string filename, IEnumerable<ValidSetting> validSettings = null)
         {
             this._settingsFile = filename;
+            this._validSettings = validSettings;
 
             var currentSection = "";
             var linenumber = 0;
